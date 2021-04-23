@@ -10,9 +10,5 @@
 #if a user with admin rights he can change the user role to the teacher role and the student role is the default role
 #if the user has the rights of a teacher in different subjects, he can put down marks for students of groups 
 
-![Image alt](https://github.com/Neruad2019/Web-platform-for-education-ASP.NET-Core/tree/main/screenshots/1.PNG)
+![Image alt][https://github.com/Neruad2019/Web-platform-for-education-ASP.NET-Core/tree/main/screenshots/1.PNG]
 
-<p align="center">
-  <img src="https://github.com/Neruad2019/Web-platform-for-education-ASP.NET-Core/tree/main/screenshots/1.PNG" width="350" title="hover text">
-  <img src="https://github.com/Neruad2019/Web-platform-for-education-ASP.NET-Core/tree/main/screenshots/1.PNG" width="350" alt="accessibility text">
-</p>
