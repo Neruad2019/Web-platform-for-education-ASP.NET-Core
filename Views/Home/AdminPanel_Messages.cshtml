@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "AdminPanel_Users";
+}
+@{
+    Layout = "~/Views/Shared/AdminPanel_Layout.cshtml";
+}
+
+@model UniversityCommittee.Models.Contact
+
+<div class="card">
+    <div class="list-group-item list-group-item-action bg-dark text-white">
+        MESSAGES
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Sender eMail</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">DETAILS</th>
+                </tr>
+            </thead>
+            @foreach (UniversityCommittee.Models.Contact Message in @ViewBag.Messages)
+            {
+                <tbody>
+                <td>@Message.Email</td>
+                <td>@Message.Message</td>
+                <td>
+                    <form action="/Home/DeleteMessage" id="delete_@Message.Id" method="post">
+                        <input type="hidden" name="m_id" value="@Message.Id">
+                    </form>
+                    <button type="submit" form="delete_@Message.Id" class="btn btn-danger btn-sm">
+                        DELETE
+                    </button>
+                </td>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+

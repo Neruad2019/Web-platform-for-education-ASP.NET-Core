@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminPanel_Layout.cshtml";
+}
+
+@model UniversityCommittee.Models.Group
+
+<div class="col-6 offset-3">
+
+    @if (ViewBag.Message1 == 1)
+    {
+        <div class="alert alert-success">
+            <ul>
+                <li>Group Data Edited Successfully</li>
+            </ul>
+        </div>
+    }
+    @if (ViewBag.Message1 == 0)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                <li>Group Data Edit Error</li>
+            </ul>
+        </div>
+    }
+
+<form action="/Home/EditGroup" method="post" id="edit">
+    <div class="form-group">
+        <input type="hidden" name="group_id" value="@ViewBag.Group.Id">
+        <label class="col-form-label">NAME:</label>
+        <input type="text" class="form-control" name="GroupName" value="@ViewBag.Group.GroupName">
+    </div>
+
+    
+
+
+    <div class="form-group my-3">
+        <label class="col-form-label">STUDENTS:</label>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SURNAME</th>
+                    <th scope="col">DETAILS</th>
+                </tr>
+            </thead>
+            <form action="#" method="post"></form>
+            @foreach (UniversityCommittee.Models.User User in @ViewBag.GroupsStudents)
+            {
+                <tbody>
+                <td>@User.Name</td>
+                <td>@User.Surname</td>
+                <td>
+                    <form action="/Home/AdminPanelUsersDetails/@User.Id" id="edit+@User.Id" method="post"></form>
+                    <button type="button submit" form="edit+@User.Id" class="btn btn-primary btn-sm">EDIT</button>
+                </td>
+                </tbody>
+            }
+        </table>
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+        <label class="col-form-label">SUBJECTS:</label>
+        <form accesskey="#" method="post"></form>
+        @if (@ViewBag.Student != null)
+        {
+            foreach (UniversityCommittee.Models.Subject Subject in @ViewBag.Student.Subjects)
+            {
+                <form action="/Home/RejectSubjects" method="post" id="deletesubject+@Subject.Id">
+                    <input type="hidden" name="group_id" value="@ViewBag.Group.Id">
+                    <input type="hidden" name="subject_id" value="@Subject.Id">
+                </form>
+            }
+            <table class="table table-striped">
+                <tbody>
+                    @foreach (UniversityCommittee.Models.Subject Subject in @ViewBag.Student.Subjects)
+                    {
+                        <tr>
+                            <td>@Subject.Name</td>
+                            <td width="10%">
+                                <button type="submit" form="deletesubject+@Subject.Id" class="btn btn-danger btn-sm">-</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <br />
+            <label class="col-form-label">NO STUDENTS IN THE GROUP!</label>
+        }
+    </div>
+    <div class="form-group">
+        <table class="table table-striped">
+            <tbody>
+                @foreach (UniversityCommittee.Models.Subject Subject in @ViewBag.Subjects)
+                {
+                    if (@ViewBag.Student != null && !@ViewBag.Student.Subjects.Contains(Subject))
+                    {
+                        <tr>
+                            <form action="/Home/AssignSubjects" method="post" id="subject+@Subject.Id">
+                                <input type="hidden" name="group_id" value="@ViewBag.Group.Id">
+                                <input type="hidden" name="subject_id" value="@Subject.Id">
+                            </form>
+                            <td>@Subject.Name</td>
+                            <td width="10%">
+                                <button form="subject+@Subject.Id" type="submit" class="btn btn-success btn-sm">+</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+    <hr>
+    <form action="/Home/DeleteGroup" method="post" id="delete">
+        <input type="hidden" name="group_id" value="@ViewBag.Group.Id">
+    </form>
+    <div class="nav justify-content-end">
+        <button type="submit" form="edit"
+                class="btn btn-success btn-sm">
+            EDIT
+        </button>
+        <button type="submit" form="delete"
+                class="btn btn-danger ml-sm-1 btn-sm">
+            DELETE
+        </button>
+    </div>
+</div>

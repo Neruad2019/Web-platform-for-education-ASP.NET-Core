@@ -1,0 +1,93 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/Profile_Layout.cshtml";
+}
+@model UniversityCommittee.Models.User
+
+<div class="card">
+    <div class="list-group-item list-group-item-action text-white" style="background-color: #180b7a">
+        Group: @ViewBag.Group.GroupName
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">FULLNAME</th>
+                    <th scope="col">MidTerm</th>
+                    <th scope="col">EndTerm</th>
+                    <th scope="col">Final Exam</th>
+                    <th scope="col">Final Grade</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            @for (int i = 0; i < ((List<UniversityCommittee.Models.User>)@ViewBag.Students).Count(); i++)
+            {
+                <tbody>
+                <th scope="row">@ViewBag.Students[i].Name @ViewBag.Students[i].Surname</th>
+                <th scope="row">@ViewBag.Assessments[i].Midterm</th>
+                <th scope="row">@ViewBag.Assessments[i].Endterm</th>
+                <th scope="row">@ViewBag.Assessments[i].FinalExam</th>
+                <th scope="row">@ViewBag.Assessments[i].FinalScore</th>
+                <td>
+                    <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                            data-target="#Modal_@i" data-whatever="Name of User...">
+                        Edit
+                    </button>
+
+                    <div class="modal fade" id="Modal_@i" tabindex="-1" role="dialog" aria-labelledby="ModalLabel_@i"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel_@i">@ViewBag.Subject.Name / @ViewBag.Group.GroupName / @ViewBag.Students[i].Name @ViewBag.Students[i].Surname</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Home/TeacherEditScore" method="post">
+                                        <input type="hidden" name="teacher_id" value="@ViewBag.User.Id">
+                                        <input type="hidden" name="subject_id" value="@ViewBag.Subject.Id">
+                                        <input type="hidden" name="group_id" value="@ViewBag.Group.Id">
+                                        <input type="hidden" name="stud_id" value="@ViewBag.Students[i].Id">
+
+                                        <div class="form-group">
+                                            <label class="col-form-label">MidTerm:</label>
+                                            <input type="text" class="form-control" name="Midterm" value="@ViewBag.Assessments[i].Midterm">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label">EndTerm:</label>
+                                            <input type="text" class="form-control" name="Endterm" value="@ViewBag.Assessments[i].Endterm">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label">Final Exam:</label>
+                                            <input type="text" class="form-control" name="FinalExam" value="@ViewBag.Assessments[i].FinalExam">
+                                        </div>
+
+                                        <hr>
+                                        <div class="nav justify-content-end">
+                                            <button type="submit" class="btn btn-primary btn-sm">ADD</button>
+                                            <button type="button" class="btn btn-secondary ml-sm-1 btn-sm"
+                                                    data-dismiss="modal">
+                                                CANCEL
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </td>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+
+

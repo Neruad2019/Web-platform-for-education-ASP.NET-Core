@@ -1,0 +1,40 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/Profile_Layout.cshtml";
+}
+@model UniversityCommittee.Models.User
+
+<div class="card">
+    <div class="list-group-item list-group-item-action text-white" style="background-color: #180b7a">
+        GRADES
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">SUBJECT</th>
+                    <th scope="col">MidTerm</th>
+                    <th scope="col">EndTerm</th>
+                    <th scope="col">Final Exam</th>
+                    <th scope="col">Final Grade</th>
+                </tr>
+            </thead>
+            @for (int i = 0; i < ((List<UniversityCommittee.Models.Subject>)@ViewBag.Subjects).Count(); i++)
+            {
+                <tbody>
+                <th scope="row">@(i+1)</th>
+                <th scope="row">@ViewBag.Subjects[i].Name</th>
+                <th scope="row">@ViewBag.Assessments[i].Midterm</th>
+                <th scope="row">@ViewBag.Assessments[i].Endterm</th>
+                <th scope="row">@ViewBag.Assessments[i].FinalExam</th>
+                <th scope="row">@ViewBag.Assessments[i].FinalScore</th>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+
+

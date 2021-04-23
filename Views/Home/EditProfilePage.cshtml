@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "EditProfilePage";
+}
+
+@{
+    Layout = "~/Views/Shared/Profile_Layout.cshtml";
+}
+
+
+@if (ViewBag.Message1 == 1)
+{
+    <div class="alert alert-success">
+        <ul>
+            <li>Profile Data Edited Successfully</li>
+        </ul>
+    </div>
+}
+@if (ViewBag.Message1 == 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            <li>Profile Data Edit Error</li>
+        </ul>
+    </div>
+}
+<form action="/Home/EditProfileData1" method="post">
+    <input type="hidden" name="id" value="@ViewBag.User.Id">
+    <input type="hidden" name="byadmin" value="false">
+    <div class="form-group">
+        <h2 class="text-center">Sign in</h2>
+        <label>Email address</label>
+        <input type="email" class="form-control mb-sm-2" name="email" value="@ViewBag.User.Email">
+    </div>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control mb-sm-2" name="name" value="@ViewBag.User.Name">
+    </div>
+    <div class="form-group">
+        <label>Surname</label>
+        <input type="text" class="form-control mb-sm-2" name="surname" value="@ViewBag.User.Surname">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary mt-sm-4" style="background-color: #180b7a">Update Profile</button>
+    </div>
+</form>
+<hr class="my-2">
+@if (ViewBag.Message2 == 1)
+{
+    <div class="alert alert-success">
+        <ul>
+            <li>Profile Image Edited Successfully</li>
+        </ul>
+    </div>
+}
+@if (ViewBag.Message2 == 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            <li>Profile Image Edit Error</li>
+        </ul>
+    </div>
+}
+<form action="/Home/EditProfileData2" method="post">
+    <input type="hidden" name="id" value="@ViewBag.User.Id">
+    <div class="form-group">
+        <h2 class="my-sm-5 text-center">Edit Picture</h2>
+        <label>URL</label>
+        <input type="text" class="form-control mb-sm-2" name="url_img" value="@ViewBag.User.PictureURL">
+        <h6 class="card-subtitle mb-2 text-muted"><small>Input url of your profile photo</small></h6>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="variant" value="2">
+        <button type="submit" class="btn btn-primary mt-sm-4" style="background-color: #180b7a">Update URL</button>
+    </div>
+</form>
+<hr class="my-2">
+@if (ViewBag.Message3 == 1)
+{
+    <div class="alert alert-success">
+        <ul>
+            <li>Password Edited Successfully</li>
+        </ul>
+    </div>
+}
+@if (ViewBag.Message3 == 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            <li>Password Edit Error</li>
+        </ul>
+    </div>
+}
+<form action="/Home/EditProfileData3" method="post">
+    <input type="hidden" name="id" value="@ViewBag.User.Id">
+    <div class="form-group">
+        <h2 class="my-sm-5 text-center">Change Password</h2>
+        <label>Current Password</label>
+        <input type="password" class="form-control mb-sm-2" name="password">
+        <h6 class="card-subtitle mb-2 text-muted"><small>Input current password</small></h6>
+    </div>
+    <div class="form-group">
+        <label>New Password</label>
+        <input type="password" class="form-control mb-sm-2" name="new_password">
+        <h6 class="card-subtitle mb-2 text-muted"><small>Input new password</small></h6>
+    </div>
+    <div class="form-group">
+        <label>Re-Input New Password</label>
+        <input type="password" class="form-control mb-sm-2" name="re_new_password">
+        <h6 class="card-subtitle mb-2 text-muted"><small>Re-input new password</small></h6>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="variant" value="3">
+        <button type="submit" class="btn btn-primary mt-sm-4" style="background-color: #180b7a">Change Password</button>
+    </div>
+</form>
+
+
+

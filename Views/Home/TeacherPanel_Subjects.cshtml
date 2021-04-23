@@ -1,0 +1,40 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/Profile_Layout.cshtml";
+}
+@model UniversityCommittee.Models.Subject
+
+<div class="card">
+    <div class="list-group-item list-group-item-action text-white" style="background-color: #180b7a">
+        Subjects
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">GROUPS</th>
+                </tr>
+            </thead>
+            @foreach (UniversityCommittee.Models.Subject subject in @ViewBag.Subjects)
+            {
+                <tbody>
+                <th scope="row">@subject.Id</th>
+                <td>@subject.Name</td>
+                <td>
+                    <form action="/Home/TeacherSubjectDetails" id="edit+@subject.Id" method="post">
+                        <input type="hidden" name="teacher_id" value="@ViewBag.User.Id">
+                        <input type="hidden" name="subject_id" value="@subject.Id">
+                    </form>
+                    <button type="button submit" form="edit+@subject.Id" class="btn btn-primary btn-sm">INFO</button>
+                </td>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+
+

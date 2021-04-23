@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "AdminPanel_Subjects";
+}
+@{
+    Layout = "~/Views/Shared/AdminPanel_Layout.cshtml";
+}
+
+@model UniversityCommittee.Models.Subject
+
+<div class="card">
+    <div class="list-group-item list-group-item-action bg-dark text-white">
+        SUBJECTS
+        <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                data-target="#Modal1" data-whatever="Name of Subject...">
+            ADD NEW
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">CREDIT AMOUNT</th>
+                    
+                    <th scope="col">DETAILS</th>
+                </tr>
+            </thead>
+            @foreach (UniversityCommittee.Models.Subject Subject in @ViewBag.Subjects)
+            {
+                <tbody>
+                <th scope="row">@Subject.Id</th>
+                <td>@Subject.Name</td>
+                <td>@Subject.CreditAmount</td>
+                
+                <td>
+                    <form action="/Home/AdminPanelSubjectsDetails/@Subject.Id" id="edit+@Subject.Id" method="post"></form>
+                    <button type="button submit" form="edit+@Subject.Id" class="btn btn-primary btn-sm">EDIT</button>
+                </td>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel1">Add New Subject</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Home/AddSubject" method="post">
+                    <div class="form-group">
+                        <label class="col-form-label">NAME:</label>
+                        <input type="text" class="form-control" name="Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">CREDIT AMOUNT:</label>
+                        <input class="form-control" name="CreditAmount">
+                    </div>
+                    <hr>
+                    <div class="nav justify-content-end">
+                        <button type="submit" class="btn btn-primary btn-sm">ADD</button>
+                        <button type="button" class="btn btn-secondary ml-sm-1 btn-sm"
+                                data-dismiss="modal">
+                            CANCEL
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

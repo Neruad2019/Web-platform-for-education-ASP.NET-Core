@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminPanel_Layout.cshtml";
+}
+
+@model UniversityCommittee.Models.Subject
+
+<div class="col-6 offset-3">
+
+    @if (ViewBag.Message1 == 1)
+    {
+        <div class="alert alert-success">
+            <ul>
+                <li>Subject Edited Successfully</li>
+            </ul>
+        </div>
+    }
+    @if (ViewBag.Message1 == 0)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                <li>Subject Edit Error</li>
+            </ul>
+        </div>
+    }
+
+    <form action="/Home/EditSubject" method="post" id="edit">
+        <div class="form-group">
+            <input type="hidden" name="subject_id" value="@ViewBag.Subject.Id">
+            <label class="col-form-label">NAME:</label>
+            <input type="text" class="form-control" name="Name" value="@ViewBag.Subject.Name">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">CREDIT AMOUNT:</label>
+            <input type="text" class="form-control" name="CreditAmount" value="@ViewBag.Subject.CreditAmount">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">TEACHER:</label>
+            <form accesskey="#" method="post"></form>
+            @foreach (UniversityCommittee.Models.User disTeacher in @ViewBag.Subject.Users)
+            {
+                if (disTeacher.RoleId == 2)
+                {
+                    <form action="/Home/RejectTeachers" method="post" id="deleteteacher+@disTeacher.Id">
+                        <input type="hidden" value="@ViewBag.Subject.Id" name="subject_id">
+                        <input type="hidden" value="@disTeacher.Id" name="teacher_id">
+                    </form>
+                }
+            }
+            <table class="table table-striped">
+                <tbody>
+                    @foreach (UniversityCommittee.Models.User disTeacher in @ViewBag.Subject.Users)
+                    {
+                        if (disTeacher.RoleId == 2)
+                        {
+                            <tr>
+                                <td>@disTeacher.Name @disTeacher.Surname</td>
+                                <td width="10%">
+                                    <button type="submit" form="deleteteacher+@disTeacher.Id" class="btn btn-danger btn-sm">-</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <table class="table table-striped">
+                <tbody>
+                    @foreach (UniversityCommittee.Models.User Teacher in @ViewBag.Teachers)
+                    {
+                        if (!@ViewBag.Subject.Users.Contains(Teacher))
+                        {
+                            <tr>
+                                <form action="/Home/AssignTeachers" method="post" id="teacher+@Teacher.Id">
+                                    <input type="hidden" value="@ViewBag.Subject.Id" name="subject_id">
+                                    <input type="hidden" value="@Teacher.Id" name="teacher_id">
+                                </form>
+                                <td>@Teacher.Name @Teacher.Surname</td>
+                                <td width="10%">
+                                    <button form="teacher+@Teacher.Id" type="submit" class="btn btn-success btn-sm">+</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <hr>
+    <form action="/Home/DeleteSubject" method="post" id="delete">
+        <input type="hidden" name="subject_id" value="@ViewBag.Subject.Id">
+    </form>
+    <div class="nav justify-content-end">
+        <button type="submit" form="edit"
+                class="btn btn-success btn-sm">
+            EDIT
+        </button>
+        <button type="submit" form="delete"
+                class="btn btn-danger ml-sm-1 btn-sm">
+            DELETE
+        </button>
+    </div>
+</div>

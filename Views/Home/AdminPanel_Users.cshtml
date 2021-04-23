@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "AdminPanel_Users";
+}
+@{
+    Layout = "~/Views/Shared/AdminPanel_Layout.cshtml";
+}
+
+@model UniversityCommittee.Models.User
+
+<div class="card">
+    <div class="list-group-item list-group-item-action bg-dark text-white">
+        USERS
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">SURNAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">ROLE</th>
+                    <th scope="col">DETAILS</th>
+                </tr>
+            </thead>
+            @foreach (UniversityCommittee.Models.User User in @ViewBag.Users)
+            {
+                <tbody>
+                <th scope="row">@User.Id</th>
+                <td>@User.Name</td>
+                <td>@User.Surname</td>
+                <td>@User.Email</td>
+                <td>@User.Role.RoleName</td>
+                <td>
+                    <form action="/Home/AdminPanelUsersDetails/@User.Id" id="edit+@User.Id" method="post"></form>
+                    <button type="button submit" form="edit+@User.Id" class="btn btn-primary btn-sm">EDIT</button>
+                </td>
+                </tbody>
+            }
+            </table>
+        </div>
+    </div>
+
+
