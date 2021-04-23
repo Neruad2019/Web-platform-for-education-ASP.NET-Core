@@ -10,3 +10,4 @@
 #if a user with admin rights he can change the user role to the teacher role and the student role is the default role
 #if the user has the rights of a teacher in different subjects, he can put down marks for students of groups 
 
+![alt text](screenshots/1.png "...")
